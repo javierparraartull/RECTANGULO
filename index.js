@@ -1,15 +1,24 @@
 const canvasSketch = require('canvas-sketch');
 const math = require ('canvas-sketch-util/math');
+const random = require ('canvas-sketch-util/random');
 
 
 const settings = {
-    dimensions: [1080,1080] 
-    // Prueba
+  dimensions: [1080,1080], 
+  //  dimensions: 'A3',
+  //  pixelsPerInch:300,
+  animate:true,
 };
 
-const sketch = () => {
+const sketch = ({context,width,height}) => {
 
   let x,y,w,h;
+  
+  //Número de rectángulos
+  const num=20;
+  //Grados de inclinación
+  const degrees = -30;
+
   let radius, angle,rx,ry;
 
     return({context,width,height}) => {
