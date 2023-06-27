@@ -4,6 +4,7 @@ const math = require ('canvas-sketch-util/math');
 
 const settings = {
     dimensions: [1080,1080] 
+    // Prueba
 };
 
 const sketch = () => {
