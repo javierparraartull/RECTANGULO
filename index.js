@@ -32,7 +32,10 @@ const sketch = ({context,width,height}) => {
     h=random.range(40,200);
 
     //fill='blue';
-    fill = 'rgba(0,0,255,0.5)'; // Con este formato podemos dar RGB + OPACIDAD
+ 
+
+  fill = 'rgba(${random.range(0,255)},${random.range(0,255)},${random.range(0,255)},1)'; // Con este formato podemos dar RGB + OPACIDAD
+    //fill = 'rgba(0,0,random.range(0,255),1}';
     stroke = 'black';
 
     rects.push({x,y,w,h, fill,stroke});
