@@ -1,6 +1,7 @@
 const canvasSketch = require('canvas-sketch');
 const math = require ('canvas-sketch-util/math');
 const random = require ('canvas-sketch-util/random');
+const risoColors = require('riso-colors'); //Importamos la biblioteca de RisoColors
 
 
 const settings = {
@@ -24,6 +25,15 @@ const sketch = ({context,width,height}) => {
   
   const rects = [];
 
+  //Creamos una matriz para almacenar un número reducido de colores aleatorios
+
+  const rectColors = [
+
+    random.pick(risoColors),
+    random.pick(risoColors),
+    random.pick(risoColors),
+  ]
+
   for (let i=0; i < num; i++){
 
     x=random.range(0,width),
@@ -31,10 +41,14 @@ const sketch = ({context,width,height}) => {
     w=random.range(200,600),
     h=random.range(40,200);
 
-   // fill = 'rgba(5,5,5,0.5)';
+
    //Relleno con colores aleatorios formato RGBA = RGB+tranparencia
+   //Podemos usar referencias de paletas como RISO INK COLORS para que se vean mejor
+
     fill = `rgba(${random.range(0,255)},${random.range(0,255)},${random.range(0,255)},${random.range(1,1)})`;
-    stroke = 'black';
+    
+    fill = random.pick(rectColors).hex; // esta función importa colores de RisoColors
+    stroke = random.pick(rectColors).hex;
 
     rects.push({x,y,w,h, fill,stroke});
 
