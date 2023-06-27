@@ -25,7 +25,7 @@ const sketch = ({context,width,height}) => {
 
   for (let i=0; i < num; i++){
 
-    x=random.range(0.width),
+    x=random.range(0,width),
     y=random.range(0,heigh),
     w=random.range(200,600),
     h=random.range(40,200);
@@ -34,27 +34,24 @@ const sketch = ({context,width,height}) => {
 
   }
 
-  let radius, angle,rx,ry;
+ // let radius, angle,rx,ry;
 
     return({context,width,height}) => {
       context.fillStyle = 'white';
       context.fillRect(0,0,width,height);
 
-      x = width * 0.5;
-      y = height * 0.5;
-      w = width * 0.6;
-      h = height * 0.1;
-  
+      rects.forEach(rect => {
+
+        const {x,y,w,h}=rect;
         context.save();
         context.translate (x,y);
         context.strokeStyle = 'blue';
-
         drawSkewedRect({context});
         context.stroke();
+        context.restore();
 
-        
 
-      context.restore();
+      })
 
     };
 
