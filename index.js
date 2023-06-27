@@ -31,11 +31,9 @@ const sketch = ({context,width,height}) => {
     w=random.range(200,600),
     h=random.range(40,200);
 
-    //fill='blue';
- 
-
-  fill = 'rgba(${random.range(0,255)},${random.range(0,255)},${random.range(0,255)},1)'; // Con este formato podemos dar RGB + OPACIDAD
-    //fill = 'rgba(0,0,random.range(0,255),1}';
+   // fill = 'rgba(5,5,5,0.5)';
+   //Relleno con colores aleatorios formato RGBA = RGB+tranparencia
+    fill = `rgba(${random.range(0,255)},${random.range(0,255)},${random.range(0,255)},${random.range(1,1)})`;
     stroke = 'black';
 
     rects.push({x,y,w,h, fill,stroke});
