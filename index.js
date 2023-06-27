@@ -1,6 +1,7 @@
 const canvasSketch = require('canvas-sketch');
 const math = require ('canvas-sketch-util/math');
 const random = require ('canvas-sketch-util/random');
+const Color = require ('canvas-sketch-util/color'); // Biblioteca para manipulación de colores
 const risoColors = require('riso-colors'); //Importamos la biblioteca de RisoColors
 
 
@@ -32,7 +33,11 @@ const sketch = ({context,width,height}) => {
     random.pick(risoColors),
     random.pick(risoColors),
     random.pick(risoColors),
-  ]
+  ];
+
+  //Elegimos un color de fondo  
+ 
+  const bgColor = random.pick(rectColors).hex;
 
   for (let i=0; i < num; i++){
 
@@ -57,21 +62,48 @@ const sketch = ({context,width,height}) => {
  // let radius, angle,rx,ry;
 
     return({context,width,height}) => {
-      context.fillStyle = 'white';
+      context.fillStyle = bgColor;
       context.fillRect(0,0,width,height);
 
       rects.forEach(rect => {
 
+        //PREPARAMOS EL RECTÁNGULO
+
         const {x,y,w,h,fill,stroke}=rect;
+        let shadowColor; //Variable para la sombra de color
+
         context.save();
         context.translate (x,y);
         context.strokeStyle = stroke;  //Estilo del trazo
         context.fillStyle = fill;      //Estilo de relleno
         context.lineWidth = 5;        //Grosor del trazo de la linea
+
+        context.globalCompositeOperation = 'overlay';
         
-        drawSkewedRect({context});
-        context.stroke();             //Dibujamos los trazos
+        //DIBUJAMOS EL RECTÁNGULO
+
+        drawSkewedRect({context,w,h,degrees});
+
+        //Preparamos la sombra del color a partir de: COLOR, COMPENSACIÓN TONO, SATURACIÓN, LUMINANCIA
+        shadowColor = Color.offsetHSL(fill,0,0,-20); 
+        shadowColor.rgba[3] = 0.6; 
+
+        //LE DAMOS SOMBRA AL RECTANGULO
+        // context.shadowColor = 'black';  //Sombra negra
+        // context.shadowColor = 'rgba(0,0,0,0.5)'; // Sombra gris semitransparente
+        context.shadowColor = Color.style(shadowColor.rgba);
+
+        context.shadowOffsetX = -5;
+        context.shadowOffsetY = 10;
+
         context.fill();               //Dibujamos los rellenos
+        context.shadowColor = null;   //Quitamos la sombra para hacer los trazos
+        context.stroke();             //Dibujamos los trazos
+
+        //LUEGO PODEMOS HACER UNA LINEA NEGRA DE NUEVO PARA REMARCAR LAS FIGURAS
+        context.lineWidth = 2;
+        context.strokeStyle = 'black';
+        context.stroke();
 
         context.restore();
 
