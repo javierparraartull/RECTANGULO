@@ -4,8 +4,8 @@ const random = require ('canvas-sketch-util/random');
 
 
 const settings = {
-  dimensions: [1080,1080], 
-  //dimensions: 'A3',
+  //dimensions: [1080,1080], 
+  dimensions: 'A3',
   //pixelsPerInch:300,
   animate:true,
 };
@@ -31,7 +31,8 @@ const sketch = ({context,width,height}) => {
     w=random.range(200,600),
     h=random.range(40,200);
 
-    fill='blue';
+    //fill='blue';
+    fill = 'rgba(0,0,255,0.5)'; // Con este formato podemos dar RGB + OPACIDAD
     stroke = 'black';
 
     rects.push({x,y,w,h, fill,stroke});
