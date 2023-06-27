@@ -12,7 +12,8 @@ const settings = {
 
 const sketch = ({context,width,height}) => {
 
-  let x,y,w,h;
+  //Variables con las distintas propiedades
+  let x,y,w,h, fill,stroke;
   
   //Número de rectángulos
   const num=20;
@@ -30,7 +31,10 @@ const sketch = ({context,width,height}) => {
     w=random.range(200,600),
     h=random.range(40,200);
 
-    rects.push({x,y,w,h});
+    fill='blue';
+    stroke = 'black';
+
+    rects.push({x,y,w,h, fill,stroke});
 
   }
 
@@ -42,12 +46,16 @@ const sketch = ({context,width,height}) => {
 
       rects.forEach(rect => {
 
-        const {x,y,w,h}=rect;
+        const {x,y,w,h,fill,stroke}=rect;
         context.save();
         context.translate (x,y);
-        context.strokeStyle = 'blue';
+        context.strokeStyle = stroke;  //Estilo del trazo
+        context.fillStyle = fill;      //Estilo de relleno
+        
         drawSkewedRect({context});
-        context.stroke();
+        context.stroke();             //Dibujamos los trazos
+        context.fill();               //Dibujamos los rellenos
+
         context.restore();
 
 
