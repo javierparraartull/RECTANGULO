@@ -15,10 +15,10 @@ const settings = {
 const sketch = ({context,width,height}) => {
 
   //Variables con las distintas propiedades
-  let x,y,w,h, fill,stroke;
+  let x,y,w,h, fill,stroke, blend;
   
   //Número de rectángulos
-  const num=20;
+  const num=40;
   //Grados de inclinación
   const degrees = -30;
 
@@ -55,7 +55,10 @@ const sketch = ({context,width,height}) => {
     fill = random.pick(rectColors).hex; // esta función importa colores de RisoColors
     stroke = random.pick(rectColors).hex;
 
-    rects.push({x,y,w,h, fill,stroke});
+    blend = (random.value() > 0.5) ? 'overlay' : 'source-over';
+
+
+    rects.push({x,y,w,h, fill,stroke,blend});
 
   }
 
@@ -69,7 +72,7 @@ const sketch = ({context,width,height}) => {
 
         //PREPARAMOS EL RECTÁNGULO
 
-        const {x,y,w,h,fill,stroke}=rect;
+        const {x,y,w,h,fill,stroke,blend}=rect;
         let shadowColor; //Variable para la sombra de color
 
         context.save();
@@ -78,7 +81,7 @@ const sketch = ({context,width,height}) => {
         context.fillStyle = fill;      //Estilo de relleno
         context.lineWidth = 5;        //Grosor del trazo de la linea
 
-        context.globalCompositeOperation = 'overlay';
+        context.globalCompositeOperation = blend;
         
         //DIBUJAMOS EL RECTÁNGULO
 
@@ -99,6 +102,8 @@ const sketch = ({context,width,height}) => {
         context.fill();               //Dibujamos los rellenos
         context.shadowColor = null;   //Quitamos la sombra para hacer los trazos
         context.stroke();             //Dibujamos los trazos
+
+        context.globalCompositeOperation = 'source-over';
 
         //LUEGO PODEMOS HACER UNA LINEA NEGRA DE NUEVO PARA REMARCAR LAS FIGURAS
         context.lineWidth = 2;
