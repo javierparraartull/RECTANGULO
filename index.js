@@ -19,6 +19,21 @@ const sketch = ({context,width,height}) => {
   //Grados de inclinación
   const degrees = -30;
 
+  //Creamos una matriz para almanecer los datos de los rectángulos que se generen aleatoriamente
+  
+  const rects = [];
+
+  for (let i=0; i < num; i++){
+
+    x=random.range(0.width),
+    y=random.range(0,heigh),
+    w=random.range(200,600),
+    h=random.range(40,200);
+
+    rects.push({x,y,w,h});
+
+  }
+
   let radius, angle,rx,ry;
 
     return({context,width,height}) => {
