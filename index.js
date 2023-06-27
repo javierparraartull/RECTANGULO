@@ -67,6 +67,7 @@ const sketch = ({context,width,height}) => {
         context.translate (x,y);
         context.strokeStyle = stroke;  //Estilo del trazo
         context.fillStyle = fill;      //Estilo de relleno
+        context.lineWidth = 5;        //Grosor del trazo de la linea
         
         drawSkewedRect({context});
         context.stroke();             //Dibujamos los trazos
